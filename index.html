@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Color Randomizer</title>
+  </head>
+  <body>
+    <main class="container" id="container">
+      <div class="settings" id="settings">
+        <div class="settings__input input__hue">
+          <input
+            class="input__range"
+            type="range"
+            id="hue"
+            name="hue"
+            min="0"
+            max="255"
+            step="1"
+            value="0"
+          />
+          <label class="settings__label" for="hue"></label>
+        </div>
+        <div class="settings__input input__saturation">
+          <input
+            class="input__range"
+            type="range"
+            id="saturation"
+            name="saturation"
+            min="0"
+            max="100"
+            step="1"
+            value="100"
+          />
+          <label class="settings__label" for="saturation"></label>
+        </div>
+        <div class="settings__input input__lightness">
+          <input
+            class="input__range"
+            type="range"
+            id="lightness"
+            name="lightness"
+            min="0"
+            max="100"
+            step="1"
+            value="50"
+          />
+          <label class="settings__label" for="lightness"></label>
+        </div>
+      </div>
+      <div class="generate-area"></div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
