@@ -24,8 +24,13 @@ body {
   height: 200px;
   background-color: #e3e3e3;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 50px;
+}
+
+.settings__color-model {
+  display: flex;
+  flex-direction: column;
 }
 
 .generate-area {
@@ -46,4 +51,16 @@ body {
 .settings__label {
   font-size: 32px;
   text-align: right;
+}
+
+.generate-area {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.generate-area__color {
+  color: white;
+  font-family: 'Consolas', monospace;
+  font-size: 25vw;
 }
