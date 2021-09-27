@@ -46,7 +46,7 @@ rangesRGB.forEach((range, index) => {
   });
 });
 
-gen.addEventListener('click', () => {
+document.querySelector('.generate-area').addEventListener('click', () => {
   background.style.backgroundColor = generateColorRGB();
 });
 
@@ -74,7 +74,7 @@ function calculateResultColor() {
 }
 
 function complementColorCode(code) {
-  let temp = Number(code).toString(16);
+  let temp = Number(code).toString(16).toUpperCase();
 
   return temp.length === 2 ? temp : '0' + temp;
 }

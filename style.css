@@ -61,6 +61,6 @@ body {
 
 .generate-area__color {
   color: white;
-  font-family: 'Consolas', monospace;
-  font-size: 25vw;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 28vw;
 }
