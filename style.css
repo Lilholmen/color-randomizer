@@ -15,26 +15,33 @@ body {
 .container {
   height: 100vh;
   width: 100%;
-  background-color: #1f1f1f;
+  background-color: #000;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  transition: background-color 1s ease-in;
 }
 
 .settings {
-  height: 200px;
   background-color: #e3e3e3;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   margin: 50px;
+  min-width: 320px;
+  width: fit-content;
 }
 
 .settings__color-model {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.generate-area {
-  height: 100%;
+.color-model__label {
+  font-size: 32px;
+  letter-spacing: 8px;
 }
 
 .settings__input {
@@ -54,6 +61,7 @@ body {
 }
 
 .generate-area {
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;

@@ -1,6 +1,5 @@
 const background = document.querySelector('#container');
 const gen = document.querySelector('.generate-area__color');
-//const result = document.querySelector('#res');
 
 const rangesHSL = document.querySelectorAll('.input__range--hsl');
 const rangesRGB = document.querySelectorAll('.input__range--rgb');
@@ -8,24 +7,32 @@ const labelsHSL = document.querySelectorAll('.settings__label--hsl');
 const labelsRGB = document.querySelectorAll('.settings__label--rgb');
 
 const settingsHSL = {
-  hue: document.querySelector('#hue').value,
-  saturation: document.querySelector('#saturation').value,
-  lightness: document.querySelector('#lightness').value,
+  h: document.querySelector('#hue').value,
+  s: document.querySelector('#saturation').value,
+  l: document.querySelector('#lightness').value,
 };
 
 const settingsRGB = {
-  red: document.querySelector('#red').value,
-  green: document.querySelector('#green').value,
-  blue: document.querySelector('#blue').value,
+  r: document.querySelector('#red').value,
+  g: document.querySelector('#green').value,
+  b: document.querySelector('#blue').value,
 };
 
-labelsHSL.forEach((label, index) => {
-  label.textContent = rangesHSL[index].value;
-});
+onStart();
 
-labelsRGB.forEach((label, index) => {
-  label.textContent = rangesRGB[index].value;
-});
+function onStart() {
+  background.style.backgroundColor = generateColorRGB();
+
+  gen.textContent = calculateResultColor();
+
+  labelsHSL.forEach((label, index) => {
+    label.textContent = rangesHSL[index].value;
+  });
+
+  labelsRGB.forEach((label, index) => {
+    label.textContent = rangesRGB[index].value;
+  });
+}
 
 rangesHSL.forEach((range, index) => {
   range.addEventListener('input', () => {
