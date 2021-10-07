@@ -6,22 +6,22 @@ const rangesRGB = document.querySelectorAll('.input__range--rgb');
 const labelsHSL = document.querySelectorAll('.settings__label--hsl');
 const labelsRGB = document.querySelectorAll('.settings__label--rgb');
 
-const settingsHSL = {
-  h: document.querySelector('#hue').value,
-  s: document.querySelector('#saturation').value,
-  l: document.querySelector('#lightness').value,
+let RGB = {
+  red: +document.querySelector('#red').value,
+  green: +document.querySelector('#green').value,
+  blue: +document.querySelector('#blue').value,
 };
 
-const settingsRGB = {
-  r: document.querySelector('#red').value,
-  g: document.querySelector('#green').value,
-  b: document.querySelector('#blue').value,
+let HSL = {
+  hue: +document.querySelector('#hue').value,
+  saturation: +document.querySelector('#saturation').value,
+  lightness: +document.querySelector('#lightness').value,
 };
 
 onStart();
 
 function onStart() {
-  background.style.backgroundColor = generateColorRGB();
+  background.style.backgroundColor = changeBackgrounColor(RGB);
 
   gen.textContent = calculateResultColor();
 
@@ -34,28 +34,37 @@ function onStart() {
   });
 }
 
+function onChange(colorModel, rangeIndex, value) {
+  if (colorModel === 'rgb') {
+    labelsRGB[rangeIndex].textContent = value;
+    RGB[event.target.id] = value;
+  } else if (colorModel === 'hsl') {
+    labelsHSL[rangeIndex].textContent = value;
+    HSL[event.target.id] = value;
+    RGB = convertHSLtoRGB(HSL.hue, HSL.saturation, HSL.lightness);
+    //rangesRGB.forEach((range) => (range.value = RGB[range.id]));
+    //labelsRGB.forEach((label) => (label.textContent = RGB[label.id]));
+  }
+
+  changeBackgrounColor(RGB);
+  gen.textContent = calculateResultColor();
+}
+
 rangesHSL.forEach((range, index) => {
-  range.addEventListener('input', () => {
-    labelsHSL[index].textContent = range.value;
-    background.style.backgroundColor = generateColorHSL();
-    gen.textContent = calculateResultColor();
-  });
+  range.addEventListener('input', () => onChange('hsl', index, range.value));
 });
 
 rangesRGB.forEach((range, index) => {
-  range.addEventListener('input', () => {
-    labelsRGB[index].textContent = range.value;
-    background.style.backgroundColor = generateColorRGB();
-    gen.textContent = calculateResultColor();
-    fontColorChanger(
-      +rangesRGB[0].value + +rangesRGB[1].value + +rangesRGB[2].value
-    );
-  });
+  range.addEventListener('input', () => onChange('rgb', index, range.value));
 });
 
 document.querySelector('.generate-area').addEventListener('click', () => {
   background.style.backgroundColor = generateColorRGB();
 });
+
+function changeBackgrounColor(currentColor) {
+  background.style.backgroundColor = `rgb(${currentColor.red},${currentColor.green},${currentColor.blue})`;
+}
 
 function generateColorHSL() {
   return `hsl(${rangesHSL[0].value}, ${rangesHSL[1].value}%, ${rangesHSL[2].value}%)`;
@@ -65,12 +74,9 @@ function generateColorRGB() {
   return `rgb(${rangesRGB[0].value}, ${rangesRGB[1].value}, ${rangesRGB[2].value})`;
 }
 
-function changeBackGroundColor() {
-  background.style.backgroundColor = `hsl{${settingsHSL.hue}, ${settingsHSL.saturation}%, ${settingsHSL.lightness}%}`;
-}
-
 function calculateResultColor() {
   let color = background.style.backgroundColor;
+
   color = color
     .slice(4, -1)
     .split(', ')
@@ -94,4 +100,50 @@ function fontColorChanger(colorSum) {
   } else {
     gen.style.color = '#fff';
   }
+}
+
+function convertHSLtoRGB(h, s, l) {
+  let r, g, b;
+
+  [s, l] = [s / 100, l / 100];
+
+  if (s === 0) {
+    r = g = b = l;
+  } else {
+    if (h === 360) {
+      h = 0;
+    }
+
+    const C = 1 - Math.abs(2 * l - 1) * s;
+    const X = C * (1 - Math.abs(((h / 60) % 2) - 1));
+    const m = l - C / 2;
+
+    r = g = b = m;
+
+    if (h < 60) {
+      r += C;
+      g += X;
+    } else if (h < 120) {
+      r += X;
+      g += C;
+    } else if (h < 180) {
+      g += C;
+      b += X;
+    } else if (h < 240) {
+      g += X;
+      b += C;
+    } else if (h < 300) {
+      r += X;
+      b += C;
+    } else if (h < 360) {
+      r += C;
+      b += X;
+    }
+  }
+
+  return {
+    red: Math.round(r * 255),
+    green: Math.round(g * 255),
+    blue: Math.round(b * 255),
+  };
 }
