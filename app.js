@@ -37,10 +37,10 @@ function onStart() {
 function onChange(colorModel, rangeIndex, value) {
   if (colorModel === 'rgb') {
     labelsRGB[rangeIndex].textContent = value;
-    RGB[event.target.id] = value;
+    RGB[event.target.id] = +value;
   } else if (colorModel === 'hsl') {
     labelsHSL[rangeIndex].textContent = value;
-    HSL[event.target.id] = value;
+    HSL[event.target.id] = +value;
     RGB = convertHSLtoRGB(HSL.hue, HSL.saturation, HSL.lightness);
     //rangesRGB.forEach((range) => (range.value = RGB[range.id]));
     //labelsRGB.forEach((label) => (label.textContent = RGB[label.id]));
